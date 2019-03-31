@@ -9,7 +9,7 @@ console.log(hobbies.map((hobbie) => {
 return 'Hobby: '+hobbie;
 }))
 
-// To Copy an Array
+// To Copy an Array   
 copiedArray = hobbies.slice();
 copiedArray1  = [hobbies]
 
