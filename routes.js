@@ -17,27 +17,29 @@ const requestHandler = (req,res) => {
     if(url === '/message' && method === 'POST')
     {
         const body = [];
-        req.on('data',()=>
+        req.on('data',(chunk )=>  
         {
-            body.push();
+            body.push(chunk);
         });
 
-        req.on('end',()=>
+        return req.on('end',()=>
         {
             const parsedBody = Buffer.concat(body).toString();    
             console.log(parsedBody);
-        })
+            const message = parsedBody.split('=')[1];
         
-        fs.writeFile('message.txt','hello Pratap',(err)=>{
+        
+        fs.writeFile('message.txt',message,(err)=>{
             console.log('File Uploaded');
             res.statusCode = 302;
             res.setHeader('Location','/');
             return res.end();
         });
+    });
 
     }
 
-    res.setHeader('Content-Type','test/html');
+    res.setHeader('Content-Type','text/html');
     res.write('<html>')
     res.write('<head><title>My First Page </title></head>')
     res.write('<body><h1>Hello from Node JS Server</h1></body>');
